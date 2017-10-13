@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output  } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { UserService } from './user.service';
 import { User } from './user';
@@ -15,6 +15,7 @@ export class UserForm{
     @Output() newUser: EventEmitter<any> = new EventEmitter();
 
     data: FormGroup;
+    id = 12;
 
     constructor(private fb: FormBuilder,
                 private userService: UserService) {
@@ -23,29 +24,47 @@ export class UserForm{
 
     createForm() {
         this.data = this.fb.group({
+            id: this.id,
             name: ['', Validators.required ],
             username: ['', Validators.required ],
             email: ['', Validators.email ],
-            website: '',
-            phone: '',
+            website: ['', Validators.required ],
+            phone: ['', Validators.required ],
             address: this.fb.group({
-                street: '',
-                suite: '',
-                city: '',
-                zipcode: ''
+                street: ['', Validators.required ],
+                suite: ['', Validators.required ],
+                city: ['', Validators.required ],
+                zipcode: ['', Validators.required ]
             }),
             company: this.fb.group({
-                name: '',
-                catchPhrase: '',
-                bs: ''
+                name: ['', Validators.required ],
+                catchPhrase: ['', Validators.required ],
+                bs: ['', Validators.required ]
             })
         })
     }
 
+    validateAllFormFields(formGroup: FormGroup) {         
+        Object.keys(formGroup.controls).forEach(field => {  
+            const control = formGroup.get(field);             
+            if (control instanceof FormControl) {             
+               control.markAsTouched({ onlySelf: true });
+            } else if (control instanceof FormGroup) {        
+                this.validateAllFormFields(control);            
+            }
+        });
+    }
+
     onSubmit() {
-        console.log(this.data.value);
-        this.userService.saveUser(this.data.value); //if there was an api request
-        this.newUser.emit(this.data.value);
+        if(this.data.valid){
+            this.data.value.id = this.id;
+            this.userService.saveUser(this.data.value); //if there was an api request
+            this.id = this.id + 1;
+            this.newUser.emit(this.data.value);
+            this.data.reset();
+        }else{
+            this.validateAllFormFields(this.data);
+        }               
     }
 }
 

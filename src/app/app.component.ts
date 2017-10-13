@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { UserService } from './user.service';
 
@@ -12,6 +12,7 @@ import { User } from './user';
 })
 
 export class AppComponent implements OnInit {
+
   constructor(private userService: UserService) { }
 
   users;
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit {
 
   newUser(user: User) {
     this.user = user;
-    this.users.push(this.user);
+    this.users.push(this.user); 
   }
 }
 
