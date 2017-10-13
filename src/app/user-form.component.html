@@ -1,0 +1,80 @@
+<form [formGroup]="data"  (ngSubmit)="onSubmit()">
+  <div class="form-group col-xs-12 col-sm-6">
+    <label class="center-block">Name:
+      <input class="form-control" formControlName="name">
+      <span *ngIf="data.hasError('name','required') && data.get('name').touched">
+          Please enter a name.
+      </span>
+    </label>
+  </div>
+  <div class="form-group col-xs-12 col-sm-6">
+    <label class="center-block">Username:
+      <input class="form-control" formControlName="username">
+      <span *ngIf="data.hasError('required') && data.get('username').touched">
+          Please enter an username.
+      </span>
+    </label>
+  </div>
+  <div class="form-group col-xs-12">
+    <label class="center-block">Email:
+      <input type="email" class="form-control" formControlName="email">
+      <span *ngIf="data.hasError('email', 'email') && data.get('email').touched">
+          Please enter the correct email, this email not valid.
+      </span>
+    </label>
+  </div>
+  <div class="form-group col-xs-12 col-sm-6">
+    <label class="center-block">Phone:
+      <input class="form-control" formControlName="phone">
+    </label>
+  </div>
+  <div formGroupName="address">
+    <div class="form-group col-xs-12 col-sm-6">
+      <label class="center-block">Street:
+        <input class="form-control" formControlName="street">
+      </label>
+    </div>
+    <div class="form-group col-xs-12 col-sm-2">
+      <label class="center-block">Suite:
+        <input class="form-control" formControlName="suite">
+      </label>
+    </div>
+    <div class="form-group col-xs-12 col-sm-5">
+      <label class="center-block">City:
+        <input class="form-control" formControlName="city">
+      </label>
+    </div>
+    <div class="form-group col-xs-12 col-sm-5">
+      <label class="center-block">Zipcode:
+        <input class="form-control" formControlName="zipcode">
+      </label>
+    </div>
+  </div>
+  <div class="form-group col-xs-12">
+    <label class="center-block">Website:
+      <input class="form-control" formControlName="website">
+    </label>
+  </div>
+  <div formGroupName="company">
+    <div class="form-group col-xs-12 col-sm-6">
+      <label class="center-block">Company Name:
+        <input class="form-control" formControlName="name">
+      </label>
+    </div>
+    <div class="form-group col-xs-12 col-sm-6">
+      <label class="center-block">BS:
+        <input class="form-control" formControlName="bs">
+      </label>
+    </div>
+    <div class="form-group col-xs-12">
+      <label class="center-block">Catch Phrase:
+        <input class="form-control" formControlName="catchPhrase">
+      </label>
+    </div>
+  </div>
+  <button type="submit"
+            [disabled]="data.pristine"  class="btn btn-success">Save</button> 
+</form>
+
+<p>Form value: {{ data.value | json }}</p>
+<p>Form status: {{ data.status | json }}</p>

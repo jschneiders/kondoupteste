@@ -1,20 +1,44 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        KondoUp Front Teste
+      </a>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid" id="list-users">
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <h3>User's list</h3>
+      <ul class="list-group">
+        <li *ngFor="let user of users" class="list-group-item" id="item-{{user.id}}" >
+            <a role="button" data-toggle="collapse" href="#{{user.id}}" 
+              aria-expanded="true" aria-controls="collapseOne"> {{user.name}} </a>
+            <div id="{{user.id}}" class="panel-collapse collapse" role="tabpanel" >
+              <div class="row">
+                <div class="col-xs-12 col-sm-4"><h5>Username:</h5> {{user.username}}</div>
+                <div class="col-xs-12 col-sm-4"><h5>Email:</h5> {{user.email}}</div>
+                <div class="col-xs-12 col-sm-4"><h5>Phone:</h5> {{user.phone}}</div>
+                <div class="col-xs-12 col-sm-6"><h5>Address:</h5> {{user.address.street}} {{user.address.suite}}, {{user.address.city}}</div>
+                <div class="col-xs-12 col-sm-6"><h5>Zipcode:</h5> {{user.address.zipcode}}</div>
+                <div class="col-xs-12 "><h5>Website:</h5> <a href="http://{{user.website}}" target="_blank">{{user.website}}</a></div>
+                <div class="col-xs-12 col-sm-6"><h5>Company:</h5> {{user.company.name}}</div>
+                <div class="col-xs-12 col-sm-6"><h5>Catch Phrase:</h5> {{user.company.catchPhrase}}</div>
+                <div class="col-xs-12"><h5>BS:</h5> {{user.company.bs}}</div>
+              </div>              
+            </div>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <div class="col-xs-12 col-md-6">
+        <h3>Add new user</h3>
+        <user-form (newUser)="newUser($event)" ></user-form>
+      </div>
+    </div>
+  </div>
+  
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
 
